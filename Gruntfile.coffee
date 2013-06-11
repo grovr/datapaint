@@ -3,7 +3,7 @@ module.exports = (grunt) ->
         coffee:
             lib:
                 src: ['src/**/*.coffee']
-                dest: 'lib/data.js'
+                dest: 'lib/all.js'
         ,            
         simplemocha:
             lib:

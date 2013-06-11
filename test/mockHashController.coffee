@@ -3,7 +3,7 @@ class MockHashController
 		@hash = ""
 
 	setHash: (newHash) ->
-		@hash = newHash
+		@hash = "#" + newHash
 
 	getHash: ->
 		return @hash

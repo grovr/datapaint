@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Data Paint page</title>
+  <meta name="description" content="Data Paint page">
+  <meta name="author" content="Matthew Grover">
+  <script src="lib/all.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script>
+  	$(document).ready(function() {
+  		var colors = ["#000000", "#0000FF", "#00FF00", "#00FFFF", "#FF0000", "#FF00FF", "#FFFF00", "#FFFFFF",
+  		"#000088", "#008800", "#008888", "#880000", "#880088", "#888800", "#888888", "#123456"];
+  		var drawingCanvasGetter = $('#drawingCanvas');
+  		var colorPickerCanvasGetter = $('#colorPickerCanvas');
+  		var hashController = new HashController();
+  		var data = new Data(hashController);
+  		data.load()
+  		var canvasDrawer = new CanvasDrawer(drawingCanvasGetter, colors);
+  		var colorPicker = new ColorPicker(colorPickerCanvasGetter, colors);
+  		for (var i=0; i<5; i++) {
+  			for (var j=0; j<5; j++) {
+  				canvasDrawer.drawPixel(i, j, data.getPixelColor(i, j));
+  			}
+  		}
+  		var drawingCanvasClickHandler = new DrawingCanvasClickHandler(drawingCanvasGetter, canvasDrawer, colorPicker, data);
+  	});
+  </script>
+</head>
+<body>
+	<canvas id="drawingCanvas" width="300" height="300">
+		HTML5 Canvas not supported
+	</canvas>
+	<canvas id="colorPickerCanvas" width="200" height="200">
+	</canvas>
+</body>
+</html>

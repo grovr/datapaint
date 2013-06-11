@@ -15,7 +15,7 @@ describe('Data Loader', ->
 			mockHashController.setHash(originalHashData)
 			data = new Data(mockHashController)
 			data.save()
-			mockHashController.getHash().should.not.equal(originalHashData)
+			mockHashController.getHash().should.not.equal("#" + originalHashData)
 		)
 		it('Should not save gibberish data after loading it', ->
 			gibberishHashData = "someGibb234dsf"
@@ -24,7 +24,7 @@ describe('Data Loader', ->
 			data = new Data(mockHashController)
 			data.load()
 			data.save()
-			mockHashController.getHash().should.not.equal(gibberishHashData)
+			mockHashController.getHash().should.not.equal("#" + gibberishHashData)
 		)
 		it('Should save valid data back again even if the hash has changed', ->
 			validHashData = "0000000000000000000000000"
@@ -34,7 +34,7 @@ describe('Data Loader', ->
 			data.load()
 			mockHashController.setHash("someGibberish")
 			data.save()
-			mockHashController.getHash().should.equal(validHashData)
+			mockHashController.getHash().should.equal("#" + validHashData)
 		)
 	)
 	describe('setPixel', ->
@@ -54,7 +54,17 @@ describe('Data Loader', ->
 			data.save()
 			previousHash = mockHashController.getHash()
 			data.setPixel(0, 0, 12)
-			mockHashController.getHash().should.not.equal(previousHash)
+			mockHashController.getHash().should.not.equal("#" + previousHash)
+		)
+	)
+	describe('getPixelColor', ->
+		it('Should return a number from saved hash', ->
+			specificHashData = "0000F00000000000000000000"
+			mockHashController = new MockHashController()
+			mockHashController.setHash(specificHashData)
+			data = new Data(mockHashController)
+			data.load()
+			data.getPixelColor(4, 0).should.equal(15)
 		)
 	)
 )
